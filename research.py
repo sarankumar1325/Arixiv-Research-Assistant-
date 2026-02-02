@@ -253,7 +253,11 @@ def write_markdown_to_pdf(text: str, usr_input: str) -> str:
 
         pdf.output(filename)
         print(f"[Report Writer] Successfully saved markdown report to: {filename}")
-        return filename
+
+        # Return relative path for download URL
+        relative_path = os.path.join(DOWNLOAD_DIR, safe_input, report_name + ".pdf")
+        print(f"[Report Writer] Returning relative path: {relative_path}")
+        return relative_path
 
     except Exception as e:
         error_msg = f"Error creating PDF: {str(e)}"
