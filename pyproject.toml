@@ -1,0 +1,21 @@
+[project]
+name = "arxiv-research-assistant"
+version = "0.1.0"
+description = "AI-powered research assistant that searches arXiv and synthesizes reports"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "tavily-python",
+    "requests",
+    "fpdf",
+    "Flask",
+    "python-dotenv",
+    "flask-cors",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
