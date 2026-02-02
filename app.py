@@ -65,8 +65,28 @@ def export_pdf():
         print(f"[Flask] PDF generation returned: {pdf_path}")
 
         if pdf_path and pdf_path.endswith(".pdf"):
-            if os.path.exists(pdf_path):
-                print(f"[Flask] PDF file exists at: {pdf_path}")
+            # Ensure we use relative path for download URL
+            if pdf_path.startswith("/"):
+                # Convert absolute path to relative
+                base_dir = os.path.dirname(os.path.abspath(__file__))
+                if pdf_path.startswith(base_dir):
+                    pdf_path = pdf_path[
+                        len(base_dir) + 1 :
+                    ]  # Remove base dir and leading slash
+                else:
+                    pdf_path = pdf_path[1:]  # Just remove leading slash
+
+            # Check if file exists (try both relative and absolute)
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            abs_path = (
+                os.path.join(base_dir, pdf_path)
+                if not pdf_path.startswith("/")
+                else pdf_path
+            )
+
+            if os.path.exists(pdf_path) or os.path.exists(abs_path):
+                print(f"[Flask] PDF file exists")
+                print(f"[Flask] Using relative path for download: {pdf_path}")
                 return jsonify(
                     {
                         "success": True,
