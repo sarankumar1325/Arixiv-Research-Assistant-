@@ -90,10 +90,16 @@ def write_markdown_to_pdf(text: str, usr_input: str) -> str:
     ).rstrip()
     safe_input = safe_input.replace(" ", "_")
 
-    subfolder = os.path.join(DOWNLOAD_DIR, safe_input)
+    # Use absolute path for Render compatibility
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    download_dir = os.path.join(base_dir, DOWNLOAD_DIR)
+    subfolder = os.path.join(download_dir, safe_input)
     filename = os.path.join(subfolder, report_name)
 
     print(f"[Report Writer] Writing markdown report to: {filename}")
+    print(f"[Report Writer] Base directory: {base_dir}")
+    print(f"[Report Writer] Download directory: {download_dir}")
+    print(f"[Report Writer] Subfolder: {subfolder}")
 
     try:
         # Create directory if it doesn't exist
