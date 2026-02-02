@@ -95,9 +95,32 @@ def export_pdf():
 @app.route("/download/<path:filename>")
 def download_file(filename):
     try:
-        return send_file(filename, as_attachment=True)
+        print(f"[Flask] Download requested for: {filename}")
+
+        # Check if file exists
+        if os.path.exists(filename):
+            print(f"[Flask] File found at: {filename}")
+            return send_file(filename, as_attachment=True, mimetype="application/pdf")
+        else:
+            # Try with absolute path
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            abs_path = os.path.join(base_dir, filename)
+            print(f"[Flask] Trying absolute path: {abs_path}")
+
+            if os.path.exists(abs_path):
+                print(f"[Flask] File found at absolute path: {abs_path}")
+                return send_file(
+                    abs_path, as_attachment=True, mimetype="application/pdf"
+                )
+            else:
+                print(f"[Flask] File not found at either location")
+                return jsonify({"error": f"File not found: {filename}"}), 404
     except Exception as e:
-        return jsonify({"error": f"File not found: {str(e)}"}), 404
+        print(f"[Flask] Error downloading file: {str(e)}")
+        import traceback
+
+        traceback.print_exc()
+        return jsonify({"error": f"Error downloading file: {str(e)}"}), 500
 
 
 if __name__ == "__main__":
