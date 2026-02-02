@@ -6,23 +6,23 @@ ArXiv Research Assistant is a sophisticated web application that combines the po
 
 ```mermaid
 flowchart TB
-    subgraph User["👤 User Interface"]
-        UI["🖥️ Retro Terminal UI<br/>HTML/CSS/JS"]
+    subgraph User["User Interface"]
+        UI["Retro Terminal UI\nHTML/CSS/JS"]
     end
     
-    subgraph Backend["⚙️ Flask Backend"]
-        API["📡 REST API Endpoints"]
-        Research["🔬 Research Engine"]
-        PDF["📄 PDF Generator"]
+    subgraph Backend["Flask Backend"]
+        API["REST API Endpoints"]
+        Research["Research Engine"]
+        PDF["PDF Generator"]
     end
     
-    subgraph External["🌐 External Services"]
-        Tavily["🔍 Tavily API<br/>Academic Search"]
+    subgraph External["External Services"]
+        Tavily["Tavily API\nAcademic Search"]
     end
     
-    subgraph Output["📤 Output"]
-        Display["📋 Formatted Report<br/>Markdown Rendering"]
-        Export["📥 PDF Export<br/>Times New Roman"]
+    subgraph Output["Output"]
+        Display["Formatted Report\nMarkdown Rendering"]
+        Export["PDF Export\nTimes New Roman"]
     end
     
     UI -->|POST /research| API
@@ -41,27 +41,27 @@ flowchart TB
     style Output fill:#1a1a2e,stroke:#ff0040,stroke-width:2px,color:#fff
 ```
 
-## ✨ Features
+## Features
 
-### 🔬 Research Capabilities
+### Research Capabilities
 - **AI-Powered Search:** Leverages Tavily API to search academic databases and research papers
 - **Intelligent Synthesis:** Automatically synthesizes findings into comprehensive markdown reports
 - **Multi-Source Analysis:** Aggregates information from multiple academic sources
 - **Executive Summaries:** Generates concise summaries alongside detailed findings
 
-### 🎨 Retro-Futuristic Interface
+### Retro-Futuristic Interface
 - **CRT Monitor Effect:** Authentic scanlines, screen flicker, and phosphor glow
 - **Terminal Aesthetic:** Amber/cyan phosphor colors on dark background
 - **Animated Elements:** Boot sequences, typing effects, progress indicators
 - **Responsive Design:** Works on desktop and mobile devices
 
-### 📄 Report Features
+### Report Features
 - **In-Browser Display:** View full research reports with markdown formatting
 - **PDF Export:** Generate professionally formatted PDFs on-demand
 - **Times New Roman Font:** Clean, academic typography in exported PDFs
 - **Markdown Rendering:** Proper headings, lists, bold, and italic formatting
 
-## 🏗️ Architecture
+## Architecture
 
 The application follows a clean client-server architecture:
 
@@ -99,7 +99,7 @@ sequenceDiagram
 - **PDF Generation:** FPDF with custom markdown parser
 - **Styling:** Custom CSS with CSS variables for theming
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Python 3.8+
@@ -138,7 +138,7 @@ python app.py
 6. **Access the interface:**
 Open your browser and navigate to `http://localhost:5000`
 
-## 📖 Usage Guide
+## Usage Guide
 
 ### Performing Research
 
@@ -156,7 +156,7 @@ Open your browser and navigate to `http://localhost:5000`
 - **Report Display:** Scrollable markdown-formatted research output
 - **Status Messages:** Success/error notifications in terminal style
 
-## 🎨 Design Philosophy
+## Design Philosophy
 
 The interface draws inspiration from:
 - 1980s sci-fi movie terminals (Blade Runner, Alien)
@@ -170,7 +170,7 @@ Key design elements:
 - **Monospace Typography:** VT323 and Space Mono fonts
 - **Terminal Patterns:** Grid backgrounds, corner brackets, status indicators
 
-## 🛠️ Development
+## Development
 
 ### Project Structure
 ```
@@ -201,7 +201,7 @@ Arixiv-Research-Assistant-
 <link href="https://fonts.googleapis.com/css2?family=Your+Font&display=swap" rel="stylesheet">
 ```
 
-## 🌐 Deployment
+## Deployment
 
 ### Free Hosting Options
 
@@ -226,7 +226,7 @@ Ensure these are set in your hosting platform:
 - `TAVILY_API_KEY` - Required for research functionality
 - `FLASK_ENV` - Set to `production` for production deployments
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Areas for improvement:
 - Additional academic data sources
@@ -235,11 +235,11 @@ Contributions are welcome! Areas for improvement:
 - Dark/light theme toggle
 - Keyboard shortcuts
 
-## 📝 License
+## License
 
 This project is open source and available under the MIT License.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Tavily** for providing the academic search API
 - **FPDF** for PDF generation capabilities
@@ -248,6 +248,6 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Built with 💚 and a love for retro-futuristic interfaces.**
+**Built with passion for retro-futuristic interfaces.**
 
 *"The future is already here — it's just not evenly distributed."* — William Gibson
