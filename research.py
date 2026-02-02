@@ -198,7 +198,9 @@ def write_markdown_to_pdf(text: str, usr_input: str) -> str:
                 pdf.set_font("Times", "", 11)
                 pdf.cell(5, 5, "", ln=False)  # Indent
                 item_text = stripped[2:].strip()
-                pdf.cell(5, 5, "\u2022", ln=False)  # Bullet
+                pdf.cell(
+                    5, 5, "-", ln=False
+                )  # Bullet (ASCII hyphen instead of unicode bullet)
                 pdf.cell(3, 5, "", ln=False)  # Space after bullet
 
                 # Process inline formatting for list item
