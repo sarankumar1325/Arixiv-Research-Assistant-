@@ -1,88 +1,253 @@
-# Project Chimera: An AI Research Synthesis Platform
+# ArXiv Research Assistant
 
-**A submission for the Google ADK Kaggle Hackathon.**
+**A retro-futuristic AI-powered research synthesis platform.**
 
-Project Chimera is a sophisticated, AI-powered research automation platform designed to accelerate innovation. It leverages a multi-agent system built with the Google Agent Development Kit (ADK) to intelligently source, analyze, and synthesize the latest scientific literature from arXiv. By transforming raw research papers into structured, easy-to-digest reports, Chimera empowers researchers, engineers, and enthusiasts to stay at the cutting edge of their fields with unparalleled efficiency.
+ArXiv Research Assistant is a sophisticated web application that combines the power of AI with a unique retro terminal aesthetic. It searches academic sources, synthesizes research findings, and presents them in a beautifully formatted interface reminiscent of 1980s sci-fi computer terminals.
 
-![Dataflow Diagram](https://github.com/user-attachments/assets/8d5f035a-f76f-4c78-ab48-45061e9e7310)
-*Figure 1: The Multi-Agent Architecture of Project Chimera, showcasing the seamless flow of data from ingestion to final report generation.*
-
-## Advanced Features
-
-- **Autonomous Multi-Agent Collaboration:** At its core, Chimera utilizes a sophisticated `SequentialAgent` to orchestrate a team of specialized AI agents. This ensures a robust, end-to-end workflow from discovery to delivery.
-- **Dynamic Data Ingestion Pipeline:** The system intelligently queries the arXiv API to fetch the most relevant and recent research papers based on user-defined domains. It includes a resilient download mechanism to handle various paper formats and ensure data integrity.
-- **LLM-Powered Analysis & Synthesis:** Chimera harnesses the power of Google's Gemini 2.0 Flash model to perform deep analysis of the ingested research papers. The `report_agent` reads the full text of multiple papers and generates a comprehensive, structured report, complete with dedicated sections for each paper.
-- **On-the-Fly PDF Report Generation:** The final output is a professionally formatted PDF document, synthesized in real-time. This allows for easy sharing, archiving, and offline access to the synthesized research.
-- **Web Interface:** A simple and intuitive web interface allows users to easily submit their research queries and download the generated reports.
-- **Scalable and Modular Architecture:** Built on the Google ADK, the entire system is designed to be scalable and modular. New agents, data sources, or processing capabilities can be seamlessly integrated to expand the platform's functionality.
-
-## Architectural Overview
-
-Project Chimera is built on a robust, multi-agent architecture, as illustrated in the dataflow diagram above. The workflow is orchestrated by a `root_agent` (`SequentialAgent`) that manages the execution of the following specialized agents:
-
-1.  **Search Agent (`search_assistant`):** This agent is responsible for the initial discovery phase. It takes a user's query, interfaces with the `search_arxiv_tool`, and identifies the most relevant research papers. It then uses the `download_to_pdf` tool to ingest the papers into the local filesystem.
-2.  **Report Agent (`report_agent`):** Once the papers are downloaded, this agent takes over. It uses the `get_all_papers_content` tool to read and process the full text of the papers. Leveraging the advanced reasoning capabilities of Gemini 2.0, it synthesizes the information into a single, coherent report.
-
-This decoupled, agent-based architecture ensures that each part of the process is handled by a specialized component, leading to a more robust and maintainable system.
-
-## Technology Stack
-
-- **Core Framework:** Google Agent Development Kit (ADK)
-- **Web Framework:** Flask
-- **Language Model:** Google Gemini 2.0 Flash
-- **Programming Language:** Python
-- **Key Libraries:**
-    - `google-adk`
-    - `Flask`
-    - `arxiv`
-    - `pypdf`
-    - `fpdf`
-    - `requests`
-
-## Installation and Usage
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/saifxyzyz/Arxiv-Research-Assistant.git
-    cd Arxiv-Research-Assistant
-    ```
-
-2.  **Create and activate a virtual environment:**
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-    ```
-
-3.  **Install the dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4.  **Set up your Google API Key:**
-    Make sure you have a `.env` file with your Google API key:
-    ```
-    GOOGLE_API_KEY=your_api_key_here
-    ```
-
-5.  **Run the application:**
+```mermaid
+flowchart TB
+    subgraph User["👤 User Interface"]
+        UI["🖥️ Retro Terminal UI<br/>HTML/CSS/JS"]
+    end
     
-    **Command-line version:**
-    ```bash
-    python start_cli.py
-    ```
-    You will be prompted to enter a research domain. The final report will be saved in the `papers/<your-domain>/` directory.
+    subgraph Backend["⚙️ Flask Backend"]
+        API["📡 REST API Endpoints"]
+        Research["🔬 Research Engine"]
+        PDF["📄 PDF Generator"]
+    end
+    
+    subgraph External["🌐 External Services"]
+        Tavily["🔍 Tavily API<br/>Academic Search"]
+    end
+    
+    subgraph Output["📤 Output"]
+        Display["📋 Formatted Report<br/>Markdown Rendering"]
+        Export["📥 PDF Export<br/>Times New Roman"]
+    end
+    
+    UI -->|POST /research| API
+    API -->|Search Query| Research
+    Research -->|API Call| Tavily
+    Tavily -->|Results| Research
+    Research -->|Report Text| API
+    API -->|JSON Response| UI
+    UI -->|Display| Display
+    UI -->|POST /export_pdf| PDF
+    PDF -->|Download| Export
+    
+    style User fill:#1a1a2e,stroke:#00f0ff,stroke-width:2px,color:#fff
+    style Backend fill:#16213e,stroke:#ffb000,stroke-width:2px,color:#fff
+    style External fill:#0f3460,stroke:#00ff41,stroke-width:2px,color:#fff
+    style Output fill:#1a1a2e,stroke:#ff0040,stroke-width:2px,color:#fff
+```
 
-    **Web Interface:**
-    ```bash
-    python app.py
-    ```
-    Open your web browser and go to `http://127.0.0.1:5000` to use the web interface.
+## ✨ Features
 
-## Future Work
+### 🔬 Research Capabilities
+- **AI-Powered Search:** Leverages Tavily API to search academic databases and research papers
+- **Intelligent Synthesis:** Automatically synthesizes findings into comprehensive markdown reports
+- **Multi-Source Analysis:** Aggregates information from multiple academic sources
+- **Executive Summaries:** Generates concise summaries alongside detailed findings
 
-Project Chimera is a foundational platform with immense potential for growth. Future enhancements could include:
+### 🎨 Retro-Futuristic Interface
+- **CRT Monitor Effect:** Authentic scanlines, screen flicker, and phosphor glow
+- **Terminal Aesthetic:** Amber/cyan phosphor colors on dark background
+- **Animated Elements:** Boot sequences, typing effects, progress indicators
+- **Responsive Design:** Works on desktop and mobile devices
 
-- [ ] **Integration with more data sources:** Expanding beyond arXiv to include sources like PubMed, IEEE Xplore, and others.  
-- [x] **Interactive Web Interface:** Building a front-end to provide a more user-friendly experience for interacting with the platform.  
-- [ ] **Knowledge Graph Integration:** Creating a knowledge graph from the synthesized research to uncover hidden connections and insights.  
-- [ ] **Advanced Querying:** Allowing for more complex, natural language queries to drive the research process.  
+### 📄 Report Features
+- **In-Browser Display:** View full research reports with markdown formatting
+- **PDF Export:** Generate professionally formatted PDFs on-demand
+- **Times New Roman Font:** Clean, academic typography in exported PDFs
+- **Markdown Rendering:** Proper headings, lists, bold, and italic formatting
+
+## 🏗️ Architecture
+
+The application follows a clean client-server architecture:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Flask
+    participant Tavily
+    participant PDF
+    
+    User->>Browser: Enter research topic
+    Browser->>Flask: POST /research
+    Flask->>Tavily: Search academic sources
+    Tavily-->>Flask: Research results
+    Flask->>Flask: Synthesize report
+    Flask-->>Browser: Report + metadata
+    Browser->>User: Display formatted report
+    
+    alt Export to PDF
+        User->>Browser: Click EXPORT_TO_PDF
+        Browser->>Flask: POST /export_pdf
+        Flask->>PDF: Generate formatted PDF
+        PDF-->>Flask: PDF file path
+        Flask-->>Browser: Download URL
+        Browser->>User: Download PDF
+    end
+```
+
+### Technology Stack
+
+- **Frontend:** HTML5, CSS3, Vanilla JavaScript
+- **Backend:** Python, Flask
+- **AI/Search:** Tavily API
+- **PDF Generation:** FPDF with custom markdown parser
+- **Styling:** Custom CSS with CSS variables for theming
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Python 3.8+
+- Tavily API key
+
+### Installation
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/sarankumar1325/Arixiv-Research-Assistant-.git
+cd Arixiv-Research-Assistant-
+```
+
+2. **Create virtual environment:**
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. **Install dependencies:**
+```bash
+pip install flask fpdf tavily-python python-dotenv flask-cors
+```
+
+4. **Set up environment variables:**
+Create a `.env` file:
+```env
+TAVILY_API_KEY=your_tavily_api_key_here
+```
+
+5. **Run the application:**
+```bash
+python app.py
+```
+
+6. **Access the interface:**
+Open your browser and navigate to `http://localhost:5000`
+
+## 📖 Usage Guide
+
+### Performing Research
+
+1. **Enter Topic:** Type your research topic in the terminal input
+2. **Execute:** Click `[ EXECUTE_RESEARCH ]` or press Enter
+3. **Wait:** Watch the boot sequence and progress indicators
+4. **Review:** Read the synthesized report in the terminal interface
+5. **Export:** Click `[ EXPORT_TO_PDF ]` to download a formatted PDF
+
+### Interface Elements
+
+- **Terminal Window:** Main interface container with CRT effects
+- **Command Line:** Input field with retro prompt (`user@chimera:~$`)
+- **Progress Steps:** Visual indicators for Search → Analyze → Synthesize → Generate
+- **Report Display:** Scrollable markdown-formatted research output
+- **Status Messages:** Success/error notifications in terminal style
+
+## 🎨 Design Philosophy
+
+The interface draws inspiration from:
+- 1980s sci-fi movie terminals (Blade Runner, Alien)
+- Classic CRT monitor aesthetics
+- Cyberpunk color palettes
+- Command-line interfaces
+
+Key design elements:
+- **Phosphor Glow:** Amber (#ffb000) and cyan (#00f0ff) accents
+- **Scanlines:** Authentic CRT screen effect
+- **Monospace Typography:** VT323 and Space Mono fonts
+- **Terminal Patterns:** Grid backgrounds, corner brackets, status indicators
+
+## 🛠️ Development
+
+### Project Structure
+```
+Arixiv-Research-Assistant-
+├── app.py                 # Flask application
+├── research.py            # Research engine and PDF generator
+├── templates/
+│   └── index.html        # Terminal UI
+├── static/
+│   └── style.css         # Retro terminal styling
+├── papers/               # Generated PDF storage
+└── README.md
+```
+
+### Customization
+
+**Colors:** Edit CSS variables in `static/style.css`:
+```css
+:root {
+  --phosphor-primary: #ffb000;    /* Amber */
+  --accent-cyan: #00f0ff;         /* Cyan */
+  --terminal-bg: #0a0a0f;         /* Dark background */
+}
+```
+
+**Fonts:** Modify font imports in `templates/index.html`:
+```html
+<link href="https://fonts.googleapis.com/css2?family=Your+Font&display=swap" rel="stylesheet">
+```
+
+## 🌐 Deployment
+
+### Free Hosting Options
+
+1. **Render** (Recommended)
+   - Connect GitHub repository
+   - Auto-deploy on push
+   - Free tier with 512MB RAM
+
+2. **Railway**
+   - $5/month free credit
+   - One-click deploy
+   - Generous resources
+
+3. **PythonAnywhere**
+   - Always-on free tier
+   - Manual deployment
+   - Good for small projects
+
+### Environment Variables for Production
+
+Ensure these are set in your hosting platform:
+- `TAVILY_API_KEY` - Required for research functionality
+- `FLASK_ENV` - Set to `production` for production deployments
+
+## 🤝 Contributing
+
+Contributions are welcome! Areas for improvement:
+- Additional academic data sources
+- Enhanced markdown parsing
+- More export formats (DOCX, HTML)
+- Dark/light theme toggle
+- Keyboard shortcuts
+
+## 📝 License
+
+This project is open source and available under the MIT License.
+
+## 🙏 Acknowledgments
+
+- **Tavily** for providing the academic search API
+- **FPDF** for PDF generation capabilities
+- **Google Fonts** for VT323 and Space Mono typography
+- **The retro computing community** for aesthetic inspiration
+
+---
+
+**Built with 💚 and a love for retro-futuristic interfaces.**
+
+*"The future is already here — it's just not evenly distributed."* — William Gibson
